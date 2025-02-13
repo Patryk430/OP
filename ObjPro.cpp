@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <numeric>
 
 int stud_skc;
@@ -15,6 +16,7 @@ struct studentas
 	std::vector <int> pazymiai;
 	int egzaminas;
 	double vidurkis;
+	double mediana;
 };
 
 studentas stud[10];
@@ -49,10 +51,17 @@ int main()
 
 		stud[i].vidurkis = sum / stud[i].pazymiai.size();
 		stud[i].vidurkis = stud[i].vidurkis * 0.4 + stud[i].egzaminas * 0.6;
+
+		sort(stud[i].pazymiai.begin(), stud[i].pazymiai.end());
+
+		if (stud[i].pazymiai.size() % 2 != 0)
+			stud[i].mediana = (double)stud[i].pazymiai[stud[i].pazymiai.size() / 2];
+		else
+			stud[i].mediana = (double)(stud[i].pazymiai[(stud[i].pazymiai.size() - 1) / 2] + stud[i].pazymiai[stud[i].pazymiai.size() / 2]) / 2.0;
 	}
 
 	for (int i = 0; i< stud_skc; i++)
 	{
-		std::cout << stud[i].vardas << " " << stud[i].pavarde << " " << stud[i].vidurkis << std::endl;
+		std::cout << stud[i].vardas << " " << stud[i].pavarde << " " << stud[i].vidurkis << " " << stud[i].mediana << std::endl;
 	}
 }

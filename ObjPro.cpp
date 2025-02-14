@@ -22,7 +22,7 @@ struct studentas
 };
 
 studentas stud[10];
-//std::vector <studentas> stud;
+
 
 int main()
 {
@@ -34,20 +34,20 @@ int main()
 		std::cout << "vardas?" << std::endl;
 		std::cin >> stud[i].vardas;
 
-		std::cout << "pavardas?" << std::endl;
+		std::cout << "pavarde?" << std::endl;
 		std::cin >> stud[i].pavarde;
 
-		std::cout << "kiek pazymiu?" << std::endl;
+		std::cout << "kiek pazymiu turi?" << std::endl;
 		std::cin >> paz_skc;
 
 		for (int j = 0; j < paz_skc; j++)
 		{
-			std::cout << "ivesk" << std::endl;
+			std::cout << "ivesk pazymi" << std::endl;
 			std::cin >> temp;
 			stud[i].pazymiai.push_back(temp);
 		}
 
-		std::cout << "kiek uz egza?" << std::endl;
+		std::cout << "kiek uz egzamina?" << std::endl;
 		std::cin >> stud[i].egzaminas;
 
 		int sum = std::accumulate(stud[i].pazymiai.begin(), stud[i].pazymiai.end(), 0);
@@ -72,3 +72,5 @@ int main()
 		else std::cout << stud[i].vardas << " " << stud[i].pavarde << " " << stud[i].vidurkis << std::endl;
 	}
 }
+
+

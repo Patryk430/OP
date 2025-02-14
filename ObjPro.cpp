@@ -7,6 +7,8 @@
 int stud_skc;
 int temp;
 int paz_skc;
+bool rezultato_tipas; 
+
 
 struct studentas
 {
@@ -20,6 +22,7 @@ struct studentas
 };
 
 studentas stud[10];
+//std::vector <studentas> stud;
 
 int main()
 {
@@ -60,8 +63,12 @@ int main()
 			stud[i].mediana = (double)(stud[i].pazymiai[(stud[i].pazymiai.size() - 1) / 2] + stud[i].pazymiai[stud[i].pazymiai.size() / 2]) / 2.0;
 	}
 
+	std::cout << "0-isvest vidurki 1-mediana" << std::endl;
+	std::cin >> rezultato_tipas;
+
 	for (int i = 0; i< stud_skc; i++)
 	{
-		std::cout << stud[i].vardas << " " << stud[i].pavarde << " " << stud[i].vidurkis << " " << stud[i].mediana << std::endl;
+		if (rezultato_tipas) std::cout << stud[i].vardas << " " << stud[i].pavarde <<  " " << stud[i].mediana << std::endl;
+		else std::cout << stud[i].vardas << " " << stud[i].pavarde << " " << stud[i].vidurkis << std::endl;
 	}
 }

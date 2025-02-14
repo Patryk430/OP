@@ -8,6 +8,7 @@ int stud_skc;
 int temp;
 int paz_skc;
 bool rezultato_tipas; 
+int pasirinkimas_pradzia;
 
 
 struct studentas
@@ -21,7 +22,7 @@ struct studentas
 	double mediana;
 };
 
-studentas stud[10];
+std::vector <studentas> stud;
 
 
 int main()
@@ -32,7 +33,7 @@ int main()
 	for (int i = 0; i< stud_skc; i++)
 	{
 		std::cout << "vardas?" << std::endl;
-		std::cin >> stud[i].vardas;
+		std::cin >> stud.begin().vardas;
 
 		std::cout << "pavarde?" << std::endl;
 		std::cin >> stud[i].pavarde;
@@ -73,4 +74,60 @@ int main()
 	}
 }
 
+void pradzia()
+{
+	std::cout<< "Sveiki." << std::endl 
+			 << "Noredami, kad programa sugeneruotu studentus įveskite, '1' " << std::endl 
+			 << "Noredami, kad programa sugeneruotu tik jų pažymius, įveskite '2' " << std::endl
+			 << "Noredami, duomenis ivest rankiniu būdu, įveskite '3' " << std::endl
+			 << "Noredami baigti darbą, įveskite '4' " << std::endl
+			 <<"jus: ";
+	std::cin>> pasirinkimas_pradzia;
+	std::cout<<std::endl;
 
+	if (pasirinkimas_pradzia==4) return;
+	if (pasirinkimas_pradzia==3) rankinis();
+	if (pasirinkimas_pradzia==2) rankinis();
+	if (pasirinkimas_pradzia==1) automatinis();
+
+};		
+
+void rankinis()
+{
+	bool studentu_pildymas=true;
+	i=0;
+
+	while (studentu_pildymas)
+	{
+		stud.push_back(studentas());
+
+		std::cout << "koks " << i+1 << "-ojo  studento vardas" << std::endl;
+		std::cin >> stud[i].vardas;
+
+		std::cout << "kokia " << i+1 << "-ojo  studento pavardė" << std::endl;
+		std::cin >> stud[i].pavarde;
+
+		std::cout << "koks " << i+1 << "-ojo  studento egzamino pažymis" << std::endl;
+		std::cin >> stud[i].egzaminas;
+
+		if (pasirinkimas_pradzia==3)
+		{
+			bool pazymiu_pildymas=true;
+			while (pazymiu_pildymas)
+			{
+				std::cout << "įveskite" << i+1 << "-ojo  studento pažymį" << std::endl;
+				std::cin >> temp;
+				stud[i].pazymiai.push_back(temp);
+
+				std::cout << "Ar jis turi dar viena pažymį? jei ne įveskite '0' jei taip įveskite '1'" << std::endl;
+				std::cin >> pazymiu_pildymas;
+			}
+		}
+
+		i++;
+		std::cout<<"Ar dar yra studentų? jei ne įveskite '0' jei taip įveskite '1'" << std::endl;
+		std::cin>>studentu_pildymas;
+	};
+
+	
+};

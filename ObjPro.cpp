@@ -166,6 +166,8 @@ void rezultatas()
 		
 	}
 	
+	stud.clear();
+
 	pradzia();
 };
 

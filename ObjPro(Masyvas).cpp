@@ -7,11 +7,13 @@
 #include <ctime>
 #include <random>
 
+
 int stud_skc;
 int temp;
 int paz_skc;
 bool rezultato_tipas; 
 int pasirinkimas_pradzia;
+int* new_array;
 
 
 
@@ -20,7 +22,9 @@ struct studentas
 	std::string vardas;
 	std::string pavarde;
 
-	std::vector <int> pazymiai;
+	int* pazymiai;    
+    int pazymiu_skaicius = 0;
+
 	int egzaminas;
 	double vidurkis;
 	double mediana;
@@ -95,6 +99,8 @@ void rankinis()
 			bool pazymiu_pildymas=true;
 			while (pazymiu_pildymas)
 			{
+				stud[i].pazymiu_skaicius++;
+
 				std::cout << "įveskite " << i+1 << "-ojo  studento pažymį" << std::endl;
 				std::cin >> temp;
 
@@ -102,7 +108,18 @@ void rankinis()
 					std::cout<<"JUSU ĮVEDIMAS NETINKAMAS, BAIGIU DARBĄ"; return; 
 				   };
 
-				stud[i].pazymiai.push_back(temp);
+				new_array = new int[stud[i].pazymiu_skaicius];
+				
+				for (int j=0; j<stud[i].pazymiu_skaicius-1; j++)
+				{
+					new_array[j]=stud[i].pazymiai[j];
+				};
+
+				new_array[stud[i].pazymiu_skaicius-1]=temp;
+
+				stud[i].pazymiai=new_array;
+
+				//delete[] new_array;
 
 				std::cout << "Ar jis turi dar viena pažymį? jei ne įveskite '0' jei taip įveskite '1'" << std::endl;
 				std::cin >> pazymiu_pildymas;
@@ -143,21 +160,27 @@ void rezultatas()
 	{
 		if (rezultato_tipas)
 		{
-			sort(stud[i].pazymiai.begin(), stud[i].pazymiai.end());
+
+			std::sort(stud[i].pazymiai, stud[i].pazymiai+stud[i].pazymiu_skaicius);
 	
-			if (stud[i].pazymiai.size() % 2 != 0)
-				stud[i].mediana = (double) stud[i].pazymiai[stud[i].pazymiai.size() / 2];
+			if (stud[i].pazymiu_skaicius % 2 != 0)
+				stud[i].mediana = (double) stud[i].pazymiai[stud[i].pazymiu_skaicius / 2];
 			else
-				stud[i].mediana = (double) (stud[i].pazymiai[(stud[i].pazymiai.size() - 1) / 2] + stud[i].pazymiai[stud[i].pazymiai.size() / 2]) / 2.0;
+				stud[i].mediana = (double) (stud[i].pazymiai[(stud[i].pazymiu_skaicius - 1) / 2] + stud[i].pazymiai[stud[i].pazymiu_skaicius / 2]) / 2.0;
 
 			stud[i].galutinis= (double) stud[i].mediana * 0.4 + stud[i].egzaminas * 0.6;
 		}	
 
 		else
 		{
-			int sum = std::accumulate(stud[i].pazymiai.begin(), stud[i].pazymiai.end(), 0);
+			int sum = 0;
 
-			stud[i].vidurkis = (double) sum / stud[i].pazymiai.size();
+			for (int j=0; j<stud[i].pazymiu_skaicius; j++)
+			{
+				sum=sum+stud[i].pazymiai[j];
+			}
+
+			stud[i].vidurkis = (double) sum / stud[i].pazymiu_skaicius;
 			stud[i].galutinis = (double) stud[i].vidurkis * 0.4 + stud[i].egzaminas * 0.6;
 		}
 
@@ -166,6 +189,9 @@ void rezultatas()
 		
 	}
 	
+	stud.clear();
+
+
 	pradzia();
 };
 
@@ -200,11 +226,11 @@ void automatinis()
 void pazymiu_generacija(int i)
 {
 	std::cout<<"Kiek pažymių turi "<<i+1<<"-tasis studentas?"<<std::endl;
-	std::cin>>paz_skc;
+	std::cin>>stud[i].pazymiu_skaicius;
 
-	for (int j=0; j<paz_skc; j++)
-	{
-	temp = 1 + rand() % (10-1)+1;
-	stud[i].pazymiai.push_back(temp);
-	};
+    stud[i].pazymiai = new int[stud[i].pazymiu_skaicius];
+
+    for (int j = 0; j < stud[i].pazymiu_skaicius; j++) {
+        stud[i].pazymiai[j] = 1 + rand() % (10 - 1);
+    };
 };

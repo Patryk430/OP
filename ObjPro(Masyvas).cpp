@@ -184,7 +184,7 @@ void rezultatas()
 			stud[i].galutinis = (double) stud[i].vidurkis * 0.4 + stud[i].egzaminas * 0.6;
 		}
 
-		std::cout << std::setw(20) << stud[i].vardas << std::setw(20) << stud[i].pavarde <<  std::setw(20) << std::setprecision(3) << stud[i].galutinis << std::endl;
+		std::cout << std::setw(20) << stud[i].vardas << std::setw(20) << stud[i].pavarde <<  std::setw(20) << std::fixed << std::setprecision(2) << stud[i].galutinis << std::endl;
 
 		
 	}
